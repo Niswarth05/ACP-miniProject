@@ -1,0 +1,24 @@
+CC      = gcc
+CFLAGS  = -Wall -Wextra -std=c11
+LIBS    = -lm
+TARGET  = graphics_editor
+NCTARGET= graphics_editor_ncurses
+
+all: $(TARGET) $(NCTARGET)
+
+$(TARGET): graphics_editor.c
+	$(CC) $(CFLAGS) -o $(TARGET) graphics_editor.c $(LIBS)
+
+$(NCTARGET): graphics_editor_ncurses.c
+	$(CC) $(CFLAGS) -o $(NCTARGET) graphics_editor_ncurses.c -lncurses $(LIBS)
+
+run: $(TARGET)
+	./$(TARGET)
+
+run-ncurses: $(NCTARGET)
+	./$(NCTARGET)
+
+clean:
+	rm -f $(TARGET) $(NCTARGET)
+
+.PHONY: all run run-ncurses clean
